@@ -40,7 +40,7 @@ public void pauseButtonClicked(GButton source, GEvent event) { //_CODE_:pauseBut
 } //_CODE_:pauseButton:875606:
 
 public void massSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:massSlider:958855:
-  println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  //println("massSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:massSlider:958855:
 
 public void focalDistanceSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:focalDistanceSlider:299666:
@@ -48,16 +48,22 @@ public void focalDistanceSliderChanged(GCustomSlider source, GEvent event) { //_
 } //_CODE_:focalDistanceSlider:299666:
 
 public void xPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:xPositionSlider:537864:
-  println("xPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  //println("xPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:xPositionSlider:537864:
 
 public void yPositionSliderChanged(GCustomSlider source, GEvent event) { //_CODE_:yPositionSlider:494398:
-  println("yPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
+  //println("yPositionSlider - GCustomSlider >> GEvent." + event + " @ " + millis());
 } //_CODE_:yPositionSlider:494398:
 
 // Changes the beamIntensity field in the Material class
 public void beamIntensitySliderChanged(GCustomSlider source, GEvent event) { //_CODE_:beamIntensitySlider:967979:
-  float num = beamIntensitySlider.getValueF();
+  float num = 1;
+  try {
+    num = beamIntensitySlider.getValueF();
+  } catch (Exception e) {
+    println(e);
+  }
+  
   
   if(num > 0.1 && num < 2 ) {
     material.beamIntensity = num;
@@ -105,18 +111,23 @@ public void glassQualityChanged(GDropList source, GEvent event) { //_CODE_:glass
 
 // Changes the surrounding temperature and resets the simulation
 public void surroundingTempChanged(GTextArea source, GEvent event) { //_CODE_:surroundingTemp:986421:
-  surroundingTemperature = float(surroundingTemp.getText());
+  try {
+    surroundingTemperature = float(surroundingTemp.getText());
   
-  if (surroundingTemperature > 60){
-    surroundingTemperature = 60;
+    if (surroundingTemperature > 60){
+      surroundingTemperature = 60;
+    }
+    
+    else if(surroundingTemperature < -20){
+      surroundingTemperature = -20;
+    }
+    
+    //currentTemperature.setText(str(surroundingTemperature));
+    reset();
+  } catch (Exception e) {
+  
   }
   
-  else if(surroundingTemperature < -20){
-    surroundingTemperature = -20;
-  }
-  
-  currentTemperature.setText(str(surroundingTemperature));
-  reset();
 } //_CODE_:surroundingTemp:986421:
 
 

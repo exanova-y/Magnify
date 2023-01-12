@@ -131,7 +131,7 @@ class Material {
     // Draw both smoke and sparks if the temperature of the object is 100 degrees hotter than its ignition temperature
     if (this.temperatureFinal > this.ignitionTemperature+70) {
       if (frameCount%3 == 0) {
-        sparkList.clear();
+        sparkList = new ArrayList<Spark>();
         
         // Adds the smoke 
         for (int i = 0; i <= 10; i++) { 

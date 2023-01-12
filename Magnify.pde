@@ -27,7 +27,7 @@ ArrayList<Spark> sparkList = new ArrayList<Spark>();
 void setup() {
   size(800,800);
   createGUI();
-  window1.loop();
+  //window1.loop();
 }
 
 // Draw 
@@ -49,6 +49,7 @@ void draw() {
     // If the smoke's y-coordinate is off the screen, remove it from the smokelist
     if(sm.y1 < 50){
       smokeList.remove(i);
+      i--;
     }
   } 
    
@@ -67,31 +68,36 @@ void draw() {
 
 // Gets certain values from the GUI every frame
 void getValuesFromGUI() {
-  xPosGlass = xPositionSlider.getValueF(); 
-  yPosGlass = yPositionSlider.getValueF();
-  
-  // Updates the values in magnifying glass class
-  magnifyingGlass.x = xPosGlass;
-  magnifyingGlass.y = yPosGlass;
-  magnifyingGlass.focalX = xPosGlass;
-  magnifyingGlass.focalY = yPosGlass + 5 * focalDistanceSlider.getValueF();
-  
-  // Gets the mass value from the mass slider 
-  float m = massSlider.getValueF();
-  
-  // Setting the mass, width and height of the material based on the mass
-  material.mass = m;
-  material.w = 20*m;
-  material.hei = 10*m;
-  
-  // Ensuring the material is not too wide or tall
-  if(material.hei > 200) {
-      material.hei = 200;
-    }
+  try {
+    xPosGlass = xPositionSlider.getValueF(); 
+    yPosGlass = yPositionSlider.getValueF();
     
-  if(material.w > 300) {
-    material.w = 300;
+    // Updates the values in magnifying glass class
+    magnifyingGlass.x = xPosGlass;
+    magnifyingGlass.y = yPosGlass;
+    magnifyingGlass.focalX = xPosGlass;
+    magnifyingGlass.focalY = yPosGlass + 5 * focalDistanceSlider.getValueF();
+    
+    // Gets the mass value from the mass slider 
+    float m = massSlider.getValueF();
+    
+    // Setting the mass, width and height of the material based on the mass
+    material.mass = m;
+    material.w = 20*m;
+    material.hei = 10*m;
+    
+    // Ensuring the material is not too wide or tall
+    if(material.hei > 200) {
+        material.hei = 200;
+      }
+      
+    if(material.w > 300) {
+      material.w = 300;
+    }
+  } catch (Exception e) {
+    println(e);
   }
+  
 }
 
 // Draws the background of the animation 
@@ -130,5 +136,10 @@ void reset() {
   smokeList = new ArrayList<Smoke>();
   sparkList = new ArrayList<Spark>();
   
-  currentTemperature.setText(str(surroundingTemperature));
+  try {
+    currentTemperature.setText(str(surroundingTemperature));
+  } catch (Exception e) {
+    println(e);
+  }
+  
 }
